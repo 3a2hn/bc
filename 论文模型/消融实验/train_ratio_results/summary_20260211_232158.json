@@ -1,0 +1,27 @@
+{
+  "experiment": "train_ratio_comparison",
+  "timestamp": "20260211_232158",
+  "config": {
+    "train_ratios": [
+      0.2,
+      0.4,
+      0.6
+    ],
+    "val_ratio": 0.1,
+    "dataset": "amazon",
+    "seed": 42,
+    "epochs": 200,
+    "gpu": 1
+  },
+  "results": {
+    "20%": {
+      "error": "CUDA error: device-side assert triggered\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1.\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    "40%": {
+      "error": "CUDA error: device-side assert triggered\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1.\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    "60%": {
+      "error": "CUDA error: device-side assert triggered\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1.\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    }
+  }
+}

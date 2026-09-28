@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String            @id @default(cuid())
+  email          String            @unique
+  name           String?
+  hashedPassword String
+  createdAt      DateTime          @default(now())
+  records        DetectionRecord[]
+  datasets       Dataset[]
+  trainingJobs   TrainingJob[]
+}
+
+model DetectionRecord {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  nodeId     Int
+  dataset    String   @default("yelp")
+  prediction Int      // 0=fraud, 1=normal
+  confidence Float
+  isBatch    Boolean  @default(false)
+  batchId    String?
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Dataset {
+  id               String        @id @default(cuid())
+  userId           String
+  user             User          @relation(fields: [userId], references: [id])
+  name             String
+  originalFilename String
+  csvPath          String
+  graphDir         String?
+  status           String        @default("uploaded") // uploaded|building|built|build_failed
+  buildLog         String?
+  buildStartedAt   DateTime?
+  buildFinishedAt  DateTime?
+  rowCount         Int?
+  fraudCount       Int?
+  normalCount      Int?
+  fraudRate        Float?
+  userCount        Int?
+  productCount     Int?
+  createdAt        DateTime      @default(now())
+  trainingJobs     TrainingJob[]
+  @@index([userId])
+}
+
+model TrainingJob {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+  datasetId       String
+  dataset         Dataset  @relation(fields: [datasetId], references: [id])
+  status          String   @default("pending") // pending|running|completed|failed
+  currentEpoch    Int      @default(0)
+  totalEpochs     Int      @default(200)
+  progressLog     String?
+  modelPath       String?
+  resultsJson     String?
+  predictionsPath String?
+  startedAt       DateTime?
+  finishedAt      DateTime?
+  errorMessage    String?
+  createdAt       DateTime @default(now())
+  @@index([userId])
+  @@index([datasetId])
+}

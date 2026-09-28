@@ -1,0 +1,6 @@
+/home/zmz/miniconda3/envs/torch2.1/lib/python3.11/site-packages/torch_geometric/typing.py:110: UserWarning: An issue occurred while importing 'torch-sparse'. Disabling its usage. Stacktrace: /home/zmz/miniconda3/envs/torch2.1/lib/python3.11/site-packages/torch_sparse/_version_cuda.so: undefined symbol: _ZN5torch3jit17parseSchemaOrNameERKSs
+  warnings.warn(f"An issue occurred while importing 'torch-sparse'. "
+usage: capture_states.py [-h] --checkpoint CHECKPOINT
+                         [--dataset {yelp,amazon}] [--output OUTPUT]
+                         [--gpu GPU]
+capture_states.py: error: the following arguments are required: --checkpoint
